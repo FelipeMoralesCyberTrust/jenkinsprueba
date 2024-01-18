@@ -37,7 +37,7 @@ pipeline {
         stage('run') {
             steps {
                 script {
-                    bat "docker run -dp ${puerto_imagen}:80 --name ${name_final} ${name_imagen}:${tag_imagen}"
+                    bat "docker run -dp ${puerto_imagen}:81 --name ${name_final} ${name_imagen}:${tag_imagen}"
                 }
             }
         }
