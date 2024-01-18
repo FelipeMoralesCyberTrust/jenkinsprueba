@@ -30,7 +30,7 @@ RUN npm install
 #copiar archivos
 COPY . .
 #Expone el puerto en el que la aplicación escucha
-EXPOSE 80
+EXPOSE 81
 #Comando para iniciar la aplicación
 CMD ["npm", "start"]
 
