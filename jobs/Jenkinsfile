@@ -20,10 +20,10 @@ pipeline {
     }
   }
   post {
-      always {          
+      /*always {          
           deleteDir()
            sh "echo 'fase always'"
-      }
+      }*/
       success {
             sh "echo 'fase success'"
         }
