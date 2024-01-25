@@ -10,17 +10,19 @@ pipeline {
         name_final = "${name_container}/${tag_imagen}:${puerto_imagen}"        
     }
     stages {
-        stage('stop/rm') {
+        stage('stop/rm_primero') {
+            when {
+                expression {
+                    DOCKER_EXIST = bat(returnStatus: true, script: "docker ps -q --filter name=${name_final}")
+                    return DOCKER_EXIST.toInteger() != 0
+                }
+            }
             steps {
                 script {
-                    def dockerExist = bat(script: 'docker ps -q --filter "name=felipemoralescybertrust/latest:81"', returnStatus: true).trim()
-
-                    if (dockerExist == 0) {
-                        echo 'Docker container does not exist, no need to stop/remove.'
-                    } else {
-                        bat 'docker stop felipemoralescybertrust/latest:81'
-                        bat 'docker rm felipemoralescybertrust/latest:81'
-                    }
+                    bat """
+                        docker stop ${name_final}
+                        docker rm ${name_final}
+                    """
                 }
             }
         }
