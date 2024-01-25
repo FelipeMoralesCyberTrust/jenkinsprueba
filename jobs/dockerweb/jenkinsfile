@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
     parameters {
@@ -14,8 +13,8 @@ pipeline {
         stage('stop/rm') {
             when {
                 expression { 
-                    DOCKER_EXIST = sh(returnStdout: true, script: 'docker ps -q --filter name=${name_final}').trim()
-                    return DOCKER_EXIST != ''
+                    DOCKER_EXIST = bat(script: "docker ps -q --filter name=${name_final}", returnStatus: true).trim()
+                    return DOCKER_EXIST == 0
                 }
             }
             steps {
